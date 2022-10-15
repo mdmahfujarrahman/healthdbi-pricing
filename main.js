@@ -410,3 +410,7 @@ toggle.onclick = function () {
         yearly.classList.add("d-none");
     }
 }
+
+$(window).load(function() {
+    $(window).css("overflow","hidden");
+ $("#loading").fadeOut(1000,function(){ $(window).css("overflow","auto")})})
