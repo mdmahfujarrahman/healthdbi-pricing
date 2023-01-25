@@ -120,6 +120,7 @@
     margin-bottom: 0;
 }
 .card-title h5 {
+    text-align: center;
     font-weight: 700;
     font-size: 2.25rem;
     line-height: 3.2rem;
@@ -143,6 +144,9 @@
     margin-right: 0.5rem;
     width: 1.5rem;
     height: auto;
+}
+.package-info ul li span {
+    color: #fff;
 }
 .package-info ul {
     margin-bottom: 20px;
