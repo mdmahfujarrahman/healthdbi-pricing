@@ -2,7 +2,7 @@ const agency = "./img/agency.png";
 const enterprise = "./img/enterprise.png";
 const startup = "./img/startup.png";
 const Enterprise = "./img/startup.png";
-const testingRecurring = "./img/startup.png";
+const testingRecurring = "./img/enterprise.png";
 const URL = "https://api.healthdbi.com/admin/subscription/get";
 let packages = false;
 let packageInfo;
@@ -19,7 +19,7 @@ const loadData = async () => {
     packageInfo = data.data;
     let result = "";
     packageInfo
-        .filter((item) => item.type === "COMMON")
+        .filter((item) => item.type === "COMMON" && item.homepage === true)
         .map((pack, index) => {
             const packagesImage = imageData[index];
             result += `<div class="col-12 col-md-6 col-lg-4 mb-5 mb-md-1 mb-lg-2">
@@ -50,9 +50,7 @@ const loadData = async () => {
                                     </ul>
                                 </div>
                                 <div class="text-center card-button">
-                                    <a href="https://app.healthdbi.com/profile" class="btn-one">
-                                        View Details
-                                    </a>
+                                    ${loadfetureUrl(pack._id)}   
                                 </div>
                             </div>
                         </div>
@@ -86,13 +84,24 @@ const loadfetureData = (data) => {
     });
     return listitem;
 };
+const loadfetureUrl = (data) => {
+    let listitem = "";
+    listitem += `<a target="_blank" href="https://app.healthdbi.com/signUp?planId=${data}&type=${
+        packages ? "year" : "month"
+    }" class="btn-one">
+        View Details
+        </a>`;
+    return listitem;
+};
+
+console.log(packages);
 
 toggle.onclick = function () {
     packages = toggle.checked;
     let result = "";
     if (packages) {
         packageInfo
-            .filter((item) => item.type === "COMMON")
+            .filter((item) => item.type === "COMMON" && item.homepage === true)
             .map((pack, index) => {
                 const packagesImage = imageData[index];
                 result += `<div class="col-12 col-md-6 col-lg-4 mb-5 mb-md-1 mb-lg-2">
@@ -123,9 +132,7 @@ toggle.onclick = function () {
                                     </ul>
                                 </div>
                                 <div class="text-center card-button">
-                                    <a href="https://app.healthdbi.com/profile" class="btn-one">
-                                        View Details
-                                    </a>
+                                ${loadfetureUrl(pack._id)}   
                                 </div>
                             </div>
                         </div>
@@ -137,7 +144,7 @@ toggle.onclick = function () {
     } else {
         let result = "";
         packageInfo
-            .filter((item) => item.type === "COMMON")
+            .filter((item) => item.type === "COMMON" && item.homepage === true)
             .map((pack, index) => {
                 const packagesImage = imageData[index];
                 result += `<div class="col-12 col-md-6 col-lg-4 mb-5 mb-md-1 mb-lg-2">
@@ -168,9 +175,7 @@ toggle.onclick = function () {
                                     </ul>
                                 </div>
                                 <div class="text-center card-button">
-                                    <a href="https://app.healthdbi.com/profile" class="btn-one">
-                                        View Details
-                                    </a>
+                                    ${loadfetureUrl(pack._id)}   
                                 </div>
                             </div>
                         </div>

@@ -148,6 +148,9 @@
 .package-info ul li span {
     color: #fff;
 }
+.package-info ul li {
+    padding: 5px;
+}
 .package-info ul {
     margin-bottom: 20px;
 }
