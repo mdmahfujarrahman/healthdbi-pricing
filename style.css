@@ -148,6 +148,10 @@
 }
 .package-info ul li span {
     color: #fff;
+    font-size: 16px;
+}
+.fontBold {
+    font-weight: 700;
 }
 .package-info ul li {
     padding: 5px;

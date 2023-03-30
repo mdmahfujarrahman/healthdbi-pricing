@@ -8,58 +8,23 @@ let packages = false;
 let packageInfo;
 const freeDemo = {
     _id: "63e3542489dfb89a44b69367",
-    title: "Free Demo",
+    title: "Free Trial",
     desc: "Coming Soon: Web address URL search, Exclusion Upload, Contact profile view, Physician, Profile view, Clinic/Facility Profile view",
     type: "COMMON",
     features: [
         {
             _id: "636f49f81c0f5d0a117dfd42",
-            description: "Physician Search Only",
+            description: "Everything in Growth Plan",
             __v: 0,
         },
         {
             _id: "636f4a191c0f5d0a117dfd46",
-            description: "NPI Number upload",
+            description: "5 free credits",
             __v: 0,
         },
         {
             _id: "636f4a261c0f5d0a117dfd57",
-            description: "CSV Export",
-            __v: 0,
-        },
-        {
-            _id: "636f4a301c0f5d0a117dfd58",
-            description: "Exclusion Upload",
-            __v: 0,
-        },
-        {
-            _id: "636f4a3c1c0f5d0a117dfd59",
-            description: "Years of Experience",
-            __v: 0,
-        },
-        {
-            _id: "636f4a431c0f5d0a117dfd54",
-            description: "Gender",
-            __v: 0,
-        },
-        {
-            _id: "636f4a4d1c0f5d0a117dfd67",
-            description: "Chat & Email Support",
-            __v: 0,
-        },
-        {
-            _id: "636f4a5c1c0f5d0a117dfd61",
-            description: "Create up to 5 Lists",
-            __v: 0,
-        },
-        {
-            _id: "636f4a681c0f5d0a117dfd62",
-            description: "No Contract",
-            __v: 0,
-        },
-        {
-            _id: "636f4a741c0f5d0a117dfd74",
-            description: "Real-Time email verification",
+            description: "7 days",
             __v: 0,
         },
     ],
@@ -74,8 +39,8 @@ const freeDemo = {
     stripe_cpu_product_id: "prod_NJlxoqrCxGTldI",
     stripe_month_price_id: "price_1MZ8Q1IJ6O2h2Dg7Aa2DVnZB",
     stripe_annual_price_id: "price_1MZ8Q1IJ6O2h2Dg78L9f2Sxd",
-    monthly_credits: 0,
-    annually_credits: 10000,
+    monthly_credits: "5 Free",
+    annually_credits: "5 Free",
     no_of_user: 1,
     homepage: true,
     disabled: false,
@@ -83,6 +48,37 @@ const freeDemo = {
     updatedAt: "2023-02-08T07:50:18.957Z",
     __v: 0,
 };
+
+const ProfessionalData = [
+    "Physician Search Only",
+    "NPI Number upload",
+    "CSV Export",
+    "Exclusion Upload",
+    "Real-Time email verification",
+    "Single user Account",
+    "Search by State License",
+    "Gender & Experience",
+    "Create up to 5 Lists",
+    "Chat & Email Support",
+    "Additional Credit $0.40/contact",
+    "Single User Account",
+];
+
+const GrowthData = [
+    "Executives & Physician Search",
+    "NPI Number upload",
+    "CSV Export",
+    "Exclusion Upload",
+    "Real-Time email verification",
+    "Company Admin & Team Management",
+    "Search by State License",
+    "Facility Type Filter",
+    "Create Lists Unlimited",
+    "Chat & Email Support",
+    "Additional Credit $0.25/contact",
+    "Additional User $50/month/User",
+    "2 users on Annual (inclusive)",
+];
 
 const toggle = document.getElementById("toggle-switch");
 const monthly = document.getElementById("monthly");
@@ -110,23 +106,20 @@ const loadData = async () => {
                             "
                         >
                             <div class="card-body">
-                                <div class="card-img">
-                                    <img
-                                        src=${packagesImage}
-                                        alt="startup"
-                                    />
-                                </div>
                                 <div class="card-title">
                                     <h5>${pack.title}</h5>
                                     <span>$ ${pack.monthly_amount}</span>
                                     <div class="text-center card-button">
                                     ${loadfetureUrl(pack._id, pack.title)}  
                                 </div>
-                                    <p>${pack.desc}</p>
+                                    <h5>${pack.monthly_credits} Credits</h5>
                                 </div>
                                 <div class="text-muted package-info">
                                     <ul class="list-unstyled">
-                                        ${loadfetureData(pack.features)}
+                                        ${loadfetureData(
+                                            pack.features,
+                                            pack.title
+                                        )}
                                     </ul>
                                 </div>
                             </div>
@@ -138,10 +131,11 @@ const loadData = async () => {
 
 loadData();
 
-const loadfetureData = (data) => {
+const loadfetureData = (data, type) => {
     let listitem = "";
-    data.map((item) => {
-        listitem += `<li>
+    if (type === "Free Trial") {
+        data.map((item) => {
+            listitem += `<li>
                         <svg
                             class="w-6 h-6 stroke_color"
                             xmlns="http://www.w3.org/2000/svg"
@@ -158,7 +152,420 @@ const loadfetureData = (data) => {
                         </svg>
                         <span>${item.description}</span>
                     </li>`;
-    });
+        });
+    } else if (type === "Professional") {
+        listitem += `<li>
+                        <svg
+                            class="w-6 h-6 stroke_color"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                            ></path>
+                        </svg>
+                        <span>Physician Search Only</span>
+                    </li>
+                    <li>
+                        <svg
+                            class="w-6 h-6 stroke_color"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                            ></path>
+                        </svg>
+                        <span>NPI Number upload</span>
+                    </li>
+                    <li>
+                        <svg
+                            class="w-6 h-6 stroke_color"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                            ></path>
+                        </svg>
+                        <span>CSV Export"</span>
+                    </li>
+                    <li>
+                        <svg
+                            class="w-6 h-6 stroke_color"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                            ></path>
+                        </svg>
+                        <span>Exclusion Upload"</span>
+                    </li>
+                    <li>
+                        <svg
+                            class="w-6 h-6 stroke_color"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                            ></path>
+                        </svg>
+                        <span class="fontBold">Real-Time email verification</span>
+                    </li>
+                    <li>
+                        <svg
+                            class="w-6 h-6 stroke_color"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                            ></path>
+                        </svg>
+                        <span>Single user Account</span>
+                    </li>
+                    <li>
+                        <svg
+                            class="w-6 h-6 stroke_color"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                            ></path>
+                        </svg>
+                        <span>Search by State License</span>
+                    </li>
+                    <li>
+                        <svg
+                            class="w-6 h-6 stroke_color"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                            ></path>
+                        </svg>
+                        <span>Gender & Experience</span>
+                    </li>
+                    <li>
+                        <svg
+                            class="w-6 h-6 stroke_color"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                            ></path>
+                        </svg>
+                        <span>Create up to 5 Lists</span>
+                    </li>
+                    <li>
+                        <svg
+                            class="w-6 h-6 stroke_color"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                            ></path>
+                        </svg>
+                        <span>Chat & Email Support</span>
+                    </li>
+                    <li>
+                        <svg
+                            class="w-6 h-6 stroke_color"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                            ></path>
+                        </svg>
+                        <span>Additional Credit $0.40/contact"</span>
+                    </li>
+    `;
+    } else if (type === "Growth") {
+        listitem += `<li>
+                        <svg
+                            class="w-6 h-6 stroke_color"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                            ></path>
+                        </svg>
+                        <span class="fontBold">Executives & Physician Search</span>
+                    </li>
+                    <li>
+                        <svg
+                            class="w-6 h-6 stroke_color"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                            ></path>
+                        </svg>
+                        <span>NPI Number upload</span>
+                    </li>
+                    <li>
+                        <svg
+                            class="w-6 h-6 stroke_color"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                            ></path>
+                        </svg>
+                        <span>CSV Export"</span>
+                    </li>
+                    <li>
+                        <svg
+                            class="w-6 h-6 stroke_color"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                            ></path>
+                        </svg>
+                        <span>Exclusion Upload"</span>
+                    </li>
+                    <li>
+                        <svg
+                            class="w-6 h-6 stroke_color"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                            ></path>
+                        </svg>
+                        <span class="fontBold">Real-Time email verification</span>
+                    </li>
+                    <li>
+                        <svg
+                            class="w-6 h-6 stroke_color"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                            ></path>
+                        </svg>
+                        <span class="fontBold">Company Admin & Team Management</span>
+                    </li>
+                    <li>
+                        <svg
+                            class="w-6 h-6 stroke_color"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                            ></path>
+                        </svg>
+                        <span>Search by State License</span>
+                    </li>
+                    <li>
+                        <svg
+                            class="w-6 h-6 stroke_color"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                            ></path>
+                        </svg>
+                        <span class="fontBold">Facility Type Filter</span>
+                    </li>
+                    <li>
+                        <svg
+                            class="w-6 h-6 stroke_color"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                            ></path>
+                        </svg>
+                        <span class="fontBold">Create Lists Unlimited</span>
+                    </li>
+                    <li>
+                        <svg
+                            class="w-6 h-6 stroke_color"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                            ></path>
+                        </svg>
+                        <span>Chat & Email Support</span>
+                    </li>
+                    <li>
+                        <svg
+                            class="w-6 h-6 stroke_color"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                            ></path>
+                        </svg>
+                        <span class="fontBold">Additional Credit $0.25/contact</span>
+                    </li>
+                    <li>
+                        <svg
+                            class="w-6 h-6 stroke_color"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                            ></path>
+                        </svg>
+                        <span>Additional User $50/month/User</span>
+                    </li>
+                    <li>
+                        <svg
+                            class="w-6 h-6 stroke_color"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                            ></path>
+                        </svg>
+                        <span class="fontBold">2 users on Annual (inclusive)</span>
+                    </li>
+                    `;
+    }
     return listitem;
 };
 
@@ -206,12 +613,6 @@ toggle.onclick = function () {
                             "
                         >
                             <div class="card-body">
-                                <div class="card-img">
-                                    <img
-                                        src=${packagesImage}
-                                        alt="startup"
-                                    />
-                                </div>
                                 <div class="card-title">
                                     <h5>${pack.title}</h5>
                                     <span>$${pack.annually_amount}</span>
@@ -221,12 +622,14 @@ toggle.onclick = function () {
                                             pack.title
                                         )}   
                                     </div>
-                                    <p>${pack.desc}</p>
-                                    
+                                    <h5>${pack.annually_credits} Credits</h5>
                                 </div>
                                 <div class="text-muted package-info">
                                     <ul class="list-unstyled">
-                                        ${loadfetureData(pack.features)}
+                                        ${loadfetureData(
+                                            pack.features,
+                                            pack.title
+                                        )}
                                     </ul>
                                 </div>
                                 
@@ -255,23 +658,20 @@ toggle.onclick = function () {
                             "
                         >
                             <div class="card-body">
-                                <div class="card-img">
-                                    <img
-                                        src=${packagesImage}
-                                        alt="startup"
-                                    />
-                                </div>
                                 <div class="card-title">
                                     <h5>${pack.title}</h5>
                                     <span>$ ${pack.monthly_amount}</span>
                                     <div class="text-center card-button">
                                     ${loadfetureUrl(pack._id, pack.title)}  
                                     </div>
-                                    <p>${pack.desc}</p>
+                                    <h5>${pack.monthly_credits} Credits</h5>
                                 </div>
                                 <div class="text-muted package-info">
                                     <ul class="list-unstyled">
-                                        ${loadfetureData(pack.features)}
+                                        ${loadfetureData(
+                                            pack.features,
+                                            pack.title
+                                        )}
                                     </ul>
                                 </div>
                             </div>
